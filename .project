@@ -2,7 +2,7 @@
 Title=xt7-player
 Startup=StartClass
 Icon=xt7-player-mpv.png
-Version=0.35.318
+Version=0.35.3181
 Component=gb.args
 Component=gb.image
 Component=gb.qt5
