@@ -2,7 +2,7 @@
 # spec file under GPLv3
 
 
-%define mpv_version 0.36
+%define mpv_version 0.37
 %define gba_version 3184
 %define version %{mpv_version}.%{gba_version}
 %define oname xt7-player-mpv
@@ -11,7 +11,7 @@
 Summary:	Xt7-player mpv GUI
 Name:		%{oname}
 Version:	%{version}
-Release:	2
+Release:	1
 Url:		http://xt7-player.sourceforge.net/xt7forum/
 #Source0:	https://github.com/kokoko3k/xt7-player-mpv/archive/%{oname}-%{version}.tar.gz
 # using my git this time 
@@ -88,7 +88,7 @@ Requires:	%{_lib}taglib1
 Requires:	%{_lib}taglib_c0
 
 # default player
-Requires:	mpv >= 0.36.0
+Requires:	mpv >= 0.37.0
 
 # 4 GUI
 Requires:	gambas3-runtime >= 3.18.4
