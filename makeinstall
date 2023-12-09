@@ -1,0 +1,37 @@
+#!/bin/bash
+
+NAME=$'xt7-player-mpv'
+# edit at each new release
+# cat .project | grep Version
+VERSION=$'0.37.3184'
+ROOTDIR=${1:-$HOME/rpmbuild/BUILD/$NAME-$VERSION/build}
+OWNER=${2:-$USER}
+GROUP=${3:-$USER}
+
+# rpm tree
+
+install -v -m 755 -o $OWNER -g $GROUP -d  $ROOTDIR/usr/bin \
+  $ROOTDIR/usr/share/applications $ROOTDIR/usr/share/metainfo
+
+
+ # executable
+install -m755 xt7-player-mpv-0.37.3184.gambas $ROOTDIR/usr/bin/xt7-player-mpv.gambas
+
+#icons
+
+for size in 256 48 32 16; do
+  install -d $ROOTDIR/usr/share/icons/hicolor/${size}x${size}/apps
+  convert xt7-player-mpv.png -resize ${size} \
+  $ROOTDIR/usr/share/icons/hicolor/${size}x${size}/apps/xt7-player-mpv.png
+done
+
+
+
+#menu entry
+install -v -m 755 -o $OWNER -g $GROUP -d  $ROOTDIR/usr/share/applications
+desktop-file-install  xt7-player-mpv.desktop\
+	--dir $ROOTDIR/usr/share/applications
+
+#appdata
+install -v -m 755 -o $OWNER -g $GROUP -d  $ROOTDIR/usr/share/metainfo/
+cp -R xt7-player-mpv.appdata.xml $ROOTDIR/usr/share/metainfo/xt7-player-mpv.appdata.xml

@@ -1,9 +1,0 @@
-#!/bin/bash
-# check for gambas3-devel
-TARGET_FILE="/usr/bin/gbc3"
-if [ -f "$TARGET_FILE" ]
-then gbc3 -e -a -g -t  -f public-module -f public-control || gbc3 -e -a -g -t -p -m && \
-     gba3 || return 1 {} \;
-else
-    echo "Please install gambas3-devel"
-fi

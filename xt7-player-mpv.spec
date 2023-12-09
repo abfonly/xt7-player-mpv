@@ -140,29 +140,11 @@ This program is written in Gambas3, so you will need Gambas3 to be installed.
 %autosetup
 
 %build
-gbc3 -e -a -g -t  -f public-module -f public-control || gbc3 -e -a -g -t -p -m
-gba3 || return 1
+./makefile
 
 %install
-# executable
-mkdir -p %{buildroot}%{_bindir}
-install -m755 %{name}-*.gambas %{buildroot}%{_bindir}/%{name}.gambas
-
-#icons
-for size in 256 48 32 16; do
-  install -d %{buildroot}%{_iconsdir}/hicolor/${size}x${size}/apps
-  convert %{name}.png -resize ${size} %{buildroot}%{_iconsdir}/hicolor/${size}x${size}/apps/%{name}.png
-done
-
-
-
-#menu entry
-desktop-file-install  %{name}.desktop\
-	--dir %{buildroot}%{_datadir}/applications
-	
-#appdata
-mkdir -p %{buildroot}%{_appdatadir}
-cp -R %{name}.appdata.xml %{buildroot}%{_appdatadir}/%{name}.appdata.xml
+./makeinstall
+cd build && cp -R -t %{buildroot} *
 
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_appdatadir}/*.xml	
