@@ -1,0 +1,7 @@
+# taglib1 and taglib_c0 are needed for tagging
+addFilter("E: explicit-lib-dependency")
+#locales-mpv
+addFilter("W: no-dependency-on")
+# wtf
+addFilter("W: no-manual-page-for-binary")
+addFilter("W: no-packager-tag")

@@ -1,22 +1,20 @@
 # Symbianflo https://abf.io/platforms/rosalinuxro_personal/repositories/main
 # spec file under GPLv3
 
-
+%define distsuffix mrb
 %define mpv_version 0.37
 %define gba_version 3184
 %define version %{mpv_version}.%{gba_version}
-%define oname xt7-player-mpv
+
 
 
 Summary:	Xt7-player mpv GUI
-Name:		%{oname}
+Name:		xt7-player-mpv
 Version:	%{version}
 Release:	1
 Url:		http://xt7-player.sourceforge.net/xt7forum/
-#Source0:	https://github.com/kokoko3k/xt7-player-mpv/archive/%{oname}-%{version}.tar.gz
-# using my git this time 
-Source0:	https://github.com/abfonly/xt7-player-mpv/archive/refs/tags/%{oname}-v.%{version}.tar.gz
-Source100:	%{oname}.rpmlintrc
+Source0:	https://github.com/abfonly/xt7-player-mpv/archive/refs/tags/%{name}-%{version}.tar.gz
+Source100:	%{name}.rpmlintrc
 License:	GPLv3
 Group:		Video
 
@@ -72,7 +70,7 @@ Requires:	wget
 Requires:	gambas3-gb-util-web >= 3.18.4
 
 # 4 audio extract/convert
-Requires:	ffmpeg >= 4.0.2
+Requires:	ffmpeg >= 6.0
 
 # 4 subtiles , manage, download a.s.o.
 Requires:	python >= 3.8
@@ -133,14 +131,13 @@ This program is written in Gambas3, so you will need Gambas3 to be installed.
 %files
 %doc LICENSE.TXT README.* CHANGELOG_GIT
 %{_bindir}/*
-%{_iconsdir}/hicolor/*/apps/%{oname}.png
-%{_datadir}/applications/%{oname}.desktop
+%{_iconsdir}/hicolor/*/apps/%{name}.png
+%{_datadir}/applications/%{name}.desktop
 %{_appdatadir}/*.appdata.xml
 
 #-----------------------------------------------------------
 %prep
-%setup -qn %{oname}-v.%{version}
-#%%setup -qn %%{oname}-master
+%autosetup
 
 %build
 gbc3 -e -a -g -t  -f public-module -f public-control || gbc3 -e -a -g -t -p -m
@@ -149,23 +146,23 @@ gba3 || return 1
 %install
 # executable
 mkdir -p %{buildroot}%{_bindir}
-install -m755 %{oname}-*.gambas %{buildroot}%{_bindir}/%{oname}.gambas
+install -m755 %{name}-*.gambas %{buildroot}%{_bindir}/%{name}.gambas
 
 #icons
 for size in 256 48 32 16; do
   install -d %{buildroot}%{_iconsdir}/hicolor/${size}x${size}/apps
-  convert %{oname}.png -resize ${size} %{buildroot}%{_iconsdir}/hicolor/${size}x${size}/apps/%{name}.png
+  convert %{name}.png -resize ${size} %{buildroot}%{_iconsdir}/hicolor/${size}x${size}/apps/%{name}.png
 done
 
 
 
 #menu entry
-desktop-file-install  %{oname}.desktop\
+desktop-file-install  %{name}.desktop\
 	--dir %{buildroot}%{_datadir}/applications
 	
 #appdata
 mkdir -p %{buildroot}%{_appdatadir}
-cp -R %{oname}.appdata.xml %{buildroot}%{_appdatadir}/%{oname}.appdata.xml
+cp -R %{name}.appdata.xml %{buildroot}%{_appdatadir}/%{name}.appdata.xml
 
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_appdatadir}/*.xml	
