@@ -7666,7 +7666,7 @@ End
 
 Public Sub MenuHomepage_Click()
   
-  Desktop.Open("https://github.com/kokoko3k/xt7-player-mpv")
+  Desktop.Open("https://github.com/abfonly/xt7-player-mpv")
   
 End
 
